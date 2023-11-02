@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: black;
+}
+
+input, textarea {
+  outline: 1px solid rgba(232, 232, 232, 0.75);
+}
+
+textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+textarea::-webkit-scrollbar-track {
+  border-radius: 6px;
+  background-color: #e7e7e7;
+  border: 1px solid #ffffff;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #bfdbfe;
+}
