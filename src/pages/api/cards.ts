@@ -6,11 +6,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export type ResponsesType = KanbanCard[] | KanbanCard | string
 export type PostCardProps = Omit<KanbanCard, 'id'>
 
-const addCard = (card: PostCardProps): KanbanCard => {
-  const newCard: KanbanCard = { ...card, id: 0 }
-  return newCard
-}
-
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponsesType>,
@@ -23,13 +18,14 @@ export default function handler(
       break
     case 'POST':
       try {
-        res.status(200).json(addCard(req.body as PostCardProps))
+        console.log('aqui', req.body)
+        cardService.addCard(req.body as PostCardProps)
       } catch (err) {
         // handleError(err as HttpError, res)
       }
       break
     default:
-      console.log('aqui')
+      res.status(HttpStatusCode.NOT_FOUND)
     // handleError(new HttpError(HttpStatusCode.NOT_FOUND, 'Not found'), res)
   }
 }
