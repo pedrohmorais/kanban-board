@@ -1,6 +1,6 @@
 import { KanbanCard } from '@/app/types/KanbanCard.model'
-import { CardsService } from '@/services/cards.service'
-import { HttpError, HttpStatusCode } from '@/utils/HttpError'
+import { CardsService } from '@/services/server/cards.service'
+import { HttpStatusCode } from '@/utils/HttpError'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export type ResponsesType = KanbanCard[] | KanbanCard | string
@@ -17,15 +17,12 @@ export default function handler(
       cardService.getCards()
       break
     case 'POST':
-      try {
-        console.log('aqui', req.body)
-        cardService.addCard(req.body as PostCardProps)
-      } catch (err) {
-        // handleError(err as HttpError, res)
-      }
+      cardService.addCard(req.body as PostCardProps)
+      break
+    case 'PUT':
+      cardService.updateCard(req.body as KanbanCard)
       break
     default:
       res.status(HttpStatusCode.NOT_FOUND)
-    // handleError(new HttpError(HttpStatusCode.NOT_FOUND, 'Not found'), res)
   }
 }

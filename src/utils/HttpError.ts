@@ -1,5 +1,3 @@
-import { NextApiResponse } from 'next/dist/shared/lib/utils'
-
 export enum HttpStatusCode {
   OK = 200,
   CREATED = 201,

@@ -1,14 +1,18 @@
+'use client'
 import { KanbanCard } from '@/app/types/KanbanCard.model'
 import { KanbanCardStatus } from '@/app/types/KanbanCardStatus.model'
+import { CardsService } from '@/services/client/cards.service'
 import { PlusIcon } from '@heroicons/react/24/solid'
 import React, { ChangeEvent, useState } from 'react'
 
 type CardProps = {
   card: KanbanCard
+  onAdd: (card: KanbanCard) => void
 }
 
-function Card({ card: { title, status, content } }: CardProps) {
+function Card({ card: { title, status, content }, onAdd }: CardProps) {
   const [editableTitle, setEditableTitle] = useState(title)
+  const [adding, setAdding] = useState(false)
   const [editableContent, setEditableContent] = useState(content)
   const isNewCard = status === KanbanCardStatus.NEW
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,12 +48,30 @@ function Card({ card: { title, status, content } }: CardProps) {
     }
     return <p className="text-gray-700">{content}</p>
   }
+  const resetNewCard = () => {
+    setEditableTitle('')
+    setEditableContent('')
+  }
   const addCard = () => {
-    console.log('adicionar card')
+    setAdding(true)
+    CardsService.addCards({
+      content: editableTitle,
+      status: KanbanCardStatus.TODO,
+      title: editableContent,
+    })
+      .then((card) => {
+        alert('Card adicionado com sucesso!')
+        resetNewCard()
+        onAdd(card as KanbanCard)
+      })
+      .finally(() => {
+        setAdding(false)
+      })
   }
   const renderAddBtn = (
     <button
       onClick={() => addCard()}
+      disabled={adding}
       className="bg-green-500 text-white py-2 px-4 rounded-full"
     >
       <PlusIcon className="h-5 w-5 text-white" />
