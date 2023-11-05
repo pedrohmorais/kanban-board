@@ -11,7 +11,6 @@ export const authMiddleware =
   (handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
     const token = req.headers.authorization?.replace('Bearer ', '')
-
     if (!token) {
       return res
         .status(HttpStatusCode.Unauthorized)

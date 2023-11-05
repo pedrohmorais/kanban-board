@@ -4,8 +4,9 @@ import CardModel from '@/database/models/CardModel'
 import { PostCardProps } from '@/pages/api/cards'
 import { HandleError, HttpError, HttpStatusCode } from '@/utils/HttpError'
 import { NextApiResponse } from 'next'
+import { ICardsService } from './ICardsService'
 
-export class CardsService {
+export class CardsService implements ICardsService {
   res: NextApiResponse<any>
   constructor(res: NextApiResponse<any>) {
     this.res = res
@@ -63,7 +64,7 @@ export class CardsService {
     }
   }
 
-  public async deleteCard(id: number): Promise<boolean | HttpError> {
+  public async deleteCard(id: number): Promise<KanbanCard[] | HttpError> {
     try {
       const existingCard = await CardModel.findByPk(id)
       if (!existingCard) {
@@ -72,9 +73,7 @@ export class CardsService {
       }
 
       await existingCard.destroy()
-
-      this.res.status(HttpStatusCode.OK).json(true)
-      return true
+      return this.getCards()
     } catch (err) {
       return this.throwError(err)
     }

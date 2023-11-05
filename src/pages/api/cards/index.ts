@@ -1,6 +1,6 @@
 import { KanbanCard } from '@/app/types/KanbanCard.model'
 import { authMiddleware } from '@/pages/middlewares/authMidleware'
-import { CardsService } from '@/services/server/cards.service'
+import { CardsService } from '@/services/server/CardService'
 import { HttpStatusCode } from '@/utils/HttpError'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
