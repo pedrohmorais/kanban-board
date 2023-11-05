@@ -5,6 +5,7 @@ import Card from './Card'
 import { KanbanCard } from '@/app/types/KanbanCard.model'
 import { CardsService } from '@/services/client/cards.service'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import KanbanBoardSkeleton from './KanbanListSkeleton'
 
 type KanbanColumn = {
   key: string
@@ -122,7 +123,7 @@ function KanbanBoard() {
     </Droppable>
   )
   if (loading || !kanbanCardStatusTitles) {
-    return 'Carregando...'
+    return <KanbanBoardSkeleton></KanbanBoardSkeleton>
   }
 
   return (

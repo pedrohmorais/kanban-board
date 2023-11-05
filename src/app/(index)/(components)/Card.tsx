@@ -55,9 +55,9 @@ function Card({ card: { title, status, content }, onAdd }: CardProps) {
   const addCard = () => {
     setAdding(true)
     CardsService.addCards({
-      content: editableTitle,
+      content: editableContent,
       status: KanbanCardStatus.TODO,
-      title: editableContent,
+      title: editableTitle,
     })
       .then((card) => {
         alert('Card adicionado com sucesso!')
