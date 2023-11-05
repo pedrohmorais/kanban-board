@@ -56,6 +56,19 @@ function KanbanBoard() {
     setKanbanCardStatusTitles(newKanbanCardStatusTitles)
     setRenders(renders + 1)
   }
+
+  const handleDeleteCard = (card: KanbanCard) => {
+    if (!kanbanCardStatusTitles) {
+      return
+    }
+    const newKanbanCardStatusTitles = kanbanCardStatusTitles
+    newKanbanCardStatusTitles[card.status].cards = newKanbanCardStatusTitles[
+      card.status
+    ].cards.filter(({ id }) => id !== card.id)
+    setKanbanCardStatusTitles(newKanbanCardStatusTitles)
+    setRenders(renders + 1)
+  }
+
   const handleDragEnd = (result) => {
     if (!kanbanCardStatusTitles) {
       return
@@ -113,7 +126,11 @@ function KanbanBoard() {
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                 >
-                  <Card card={card} onAdd={handleAddCard}></Card>
+                  <Card
+                    card={card}
+                    onAdd={handleAddCard}
+                    onDelete={handleDeleteCard}
+                  ></Card>
                 </div>
               )}
             </Draggable>

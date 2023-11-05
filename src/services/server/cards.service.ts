@@ -62,4 +62,21 @@ export class CardsService {
       return this.throwError(err)
     }
   }
+
+  public async deleteCard(id: number): Promise<boolean | HttpError> {
+    try {
+      const existingCard = await CardModel.findByPk(id)
+      if (!existingCard) {
+        const err = new HttpError(HttpStatusCode.NOT_FOUND, 'Card not found')
+        return this.throwError(err)
+      }
+
+      await existingCard.destroy()
+
+      this.res.status(HttpStatusCode.OK).json(true)
+      return true
+    } catch (err) {
+      return this.throwError(err)
+    }
+  }
 }

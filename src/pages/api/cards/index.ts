@@ -12,15 +12,13 @@ export default function handler(
 ) {
   const { method } = req
   const cardService = new CardsService(res)
+
   switch (method) {
     case 'GET':
       cardService.getCards()
       break
     case 'POST':
       cardService.addCard(req.body as PostCardProps)
-      break
-    case 'PUT':
-      cardService.updateCard(req.body as KanbanCard)
       break
     default:
       res.status(HttpStatusCode.NOT_FOUND)

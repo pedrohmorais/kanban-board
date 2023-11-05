@@ -15,8 +15,12 @@ export class CardsService {
   }
 
   public static async updateCard(
-    card: PostCardProps,
+    card: KanbanCard,
   ): Promise<KanbanCard | HttpError> {
-    return axiosConfig.put('/cards', card).then(({ data }) => data)
+    return axiosConfig.put(`/cards/${card.id}`, card).then(({ data }) => data)
+  }
+
+  public static async deleteCard(cardId: number): Promise<boolean | HttpError> {
+    return axiosConfig.delete(`/cards/${cardId}`).then(({ data }) => data)
   }
 }
