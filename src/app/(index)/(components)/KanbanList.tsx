@@ -6,6 +6,7 @@ import { KanbanCard } from '@/app/types/KanbanCard.model'
 import { CardsService } from '@/services/client/cards.service'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import KanbanBoardSkeleton from './KanbanListSkeleton'
+import { LoginService } from '@/services/client/login.service'
 
 type KanbanColumn = {
   key: string
@@ -21,7 +22,7 @@ const defaultKanbanCardStatusTitles: KanbanColumnObj = {
   [KanbanCardStatus.DONE]: { key: 'DONE', title: 'Done', cards: [] },
 }
 
-function KanbanBoard() {
+function KanbanBoard({ username, password }) {
   const [kanbanCardStatusTitles, setKanbanCardStatusTitles] =
     useState<KanbanColumnObj>()
 
@@ -29,22 +30,25 @@ function KanbanBoard() {
   const [renders, setRenders] = useState<number>(0)
 
   useEffect(() => {
-    CardsService.getCards().then((r) => {
-      const cards = r as KanbanCard[]
-      const newKanbanCardStatusTitles = defaultKanbanCardStatusTitles
-      cards.forEach((card) => {
-        newKanbanCardStatusTitles[card.status].cards.push(card)
+    LoginService.login(username, password).then(() => {
+      CardsService.getCards().then((r) => {
+        const cards = r as KanbanCard[]
+        const newKanbanCardStatusTitles = defaultKanbanCardStatusTitles
+        cards.forEach((card) => {
+          newKanbanCardStatusTitles[card.status].cards.push(card)
+        })
+        const defaultColumn: KanbanCard = {
+          id: 0,
+          content: '',
+          status: KanbanCardStatus.NEW,
+          title: '',
+        }
+        newKanbanCardStatusTitles[KanbanCardStatus.NEW].cards = [defaultColumn]
+        setKanbanCardStatusTitles(newKanbanCardStatusTitles)
+        setLoading(false)
       })
-      const defaultColumn: KanbanCard = {
-        id: 0,
-        content: '',
-        status: KanbanCardStatus.NEW,
-        title: '',
-      }
-      newKanbanCardStatusTitles[KanbanCardStatus.NEW].cards = [defaultColumn]
-      setKanbanCardStatusTitles(newKanbanCardStatusTitles)
-      setLoading(false)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleAddCard = (card: KanbanCard) => {

@@ -19,11 +19,13 @@ type CardProps = {
 
 function Card({ card, onAdd, onDelete }: CardProps) {
   const { id, title, status, content } = card
+  const [currentTitle, setCurrentTitle] = useState(title)
+  const [currentContent, setCurrentContent] = useState(content)
   const [editableTitle, setEditableTitle] = useState(title)
+  const [editableContent, setEditableContent] = useState(content)
   const [adding, setAdding] = useState(false)
   const [upddating, setUpddating] = useState(false)
   const [editMode, setEditMode] = useState(false)
-  const [editableContent, setEditableContent] = useState(content)
   const isNewCard = status === KanbanCardStatus.NEW
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditableTitle(e.target.value)
@@ -43,7 +45,7 @@ function Card({ card, onAdd, onDelete }: CardProps) {
         />
       )
     }
-    return <h2 className="text-lg font-semibold mb-2">{title}</h2>
+    return <h2 className="text-lg font-semibold mb-2">{currentTitle}</h2>
   }
   const renderContent = () => {
     if (isNewCard || editMode) {
@@ -57,7 +59,7 @@ function Card({ card, onAdd, onDelete }: CardProps) {
         />
       )
     }
-    return <p className="text-gray-700">{content}</p>
+    return <p className="text-gray-700">{currentContent}</p>
   }
   const resetNewCard = () => {
     setEditableTitle('')
@@ -86,6 +88,8 @@ function Card({ card, onAdd, onDelete }: CardProps) {
       status,
       title: editableTitle,
     }).finally(() => {
+      setCurrentTitle(editableTitle)
+      setCurrentContent(editableContent)
       setUpddating(false)
       setEditMode(false)
     })
@@ -102,8 +106,8 @@ function Card({ card, onAdd, onDelete }: CardProps) {
       })
   }
   const discardChanges = () => {
-    setEditableTitle(title)
-    setEditableContent(content)
+    setEditableTitle(currentTitle)
+    setEditableContent(currentContent)
     setEditMode(false)
   }
 
