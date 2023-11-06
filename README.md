@@ -4,6 +4,8 @@
 
 Esta aplicação é um Kanban Board desenvolvido em Next.js 13, com o uso de Node.js 21.1.0 e estilização feita com Tailwind CSS. A aplicação é um monolito que inclui tanto o frontend quanto o backend. Os testes end-to-end (E2E) foram implementados utilizando o Cypress.
 
+![Print](https://github.com/pedrohmorais/kanban-board/assets/16689908/cd44ae21-fbda-4e37-8c3b-ceebab063b5d "Print")
+
 ## Funcionalidades
 
 - Visualização e organização de tarefas em um estilo Kanban.

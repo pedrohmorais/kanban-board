@@ -1,4 +1,5 @@
 'use client'
+import ReactMarkdown from 'react-markdown'
 import { KanbanCard } from '@/app/types/KanbanCard.model'
 import { KanbanCardStatus } from '@/app/types/KanbanCardStatus.model'
 import { CardsService } from '@/services/client/cards.service'
@@ -59,7 +60,9 @@ function Card({ card, onAdd, onDelete }: CardProps) {
         />
       )
     }
-    return <p className="text-gray-700">{currentContent}</p>
+    return (
+      <ReactMarkdown className="text-gray-700">{currentContent}</ReactMarkdown>
+    )
   }
   const resetNewCard = () => {
     setEditableTitle('')

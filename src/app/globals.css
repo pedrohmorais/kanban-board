@@ -38,3 +38,36 @@ textarea::-webkit-scrollbar-thumb {
   border-radius: 8px;
   background-color: #bfdbfe;
 }
+
+h2 {
+  color: #333; /* Cor do texto */
+  font-size: 24px; /* Tamanho da fonte */
+  font-weight: bold; /* Peso da fonte */
+  margin: 16px 0; /* Margem superior e inferior */
+}
+
+/* Estilização para h3 */
+h3 {
+  color: #555;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+pre {
+  background-color: #f7f7f9; /* Cor de fundo */
+  border: 1px solid #d1d1d6; /* Borda */
+  border-radius: 5px; /* Cantos arredondados */
+  padding: 10px; /* Espaçamento interno */
+  overflow: auto; /* Barra de rolagem quando necessário */
+  font-size: 14px; /* Tamanho da fonte */
+  line-height: 1.5; /* Espaçamento entre linhas */
+  color: #333; /* Cor do texto */
+}
+
+/* Estilização para o código dentro do pre */
+pre code {
+  font-size: 14px; /* Tamanho da fonte */
+  line-height: 1.5; /* Espaçamento entre linhas */
+  color: #333; /* Cor do texto */
+}
