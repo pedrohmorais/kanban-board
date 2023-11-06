@@ -31,6 +31,27 @@ export class CardsService implements ICardsService {
 
   public async addCard(card: PostCardProps): Promise<KanbanCard | HttpError> {
     const { title, content, status } = card
+    if (!title) {
+      const err = new HttpError(
+        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        'Invalid title',
+      )
+      return this.throwError(err)
+    }
+    if (!content) {
+      const err = new HttpError(
+        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        'Invalid content',
+      )
+      return this.throwError(err)
+    }
+    if (!status) {
+      const err = new HttpError(
+        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        'Invalid status',
+      )
+      return this.throwError(err)
+    }
     return CardModel.create({ title, content, status })
       .then((r: CardModel) => {
         this.res.status(HttpStatusCode.OK).json(r.dataValues)
@@ -43,7 +64,27 @@ export class CardsService implements ICardsService {
 
   public async updateCard(card: KanbanCard): Promise<KanbanCard | HttpError> {
     const { id, title, content, status } = card
-
+    if (!title) {
+      const err = new HttpError(
+        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        'Invalid title',
+      )
+      return this.throwError(err)
+    }
+    if (!content) {
+      const err = new HttpError(
+        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        'Invalid content',
+      )
+      return this.throwError(err)
+    }
+    if (!status) {
+      const err = new HttpError(
+        HttpStatusCode.INTERNAL_SERVER_ERROR,
+        'Invalid status',
+      )
+      return this.throwError(err)
+    }
     try {
       const existingCard = await CardModel.findByPk(id)
       if (!existingCard) {

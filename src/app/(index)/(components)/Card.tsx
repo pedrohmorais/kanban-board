@@ -10,7 +10,7 @@ import {
   NoSymbolIcon,
   DocumentCheckIcon,
 } from '@heroicons/react/24/solid'
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 
 type CardProps = {
   card: KanbanCard
@@ -24,10 +24,23 @@ function Card({ card, onAdd, onDelete }: CardProps) {
   const [currentContent, setCurrentContent] = useState(content)
   const [editableTitle, setEditableTitle] = useState(title)
   const [editableContent, setEditableContent] = useState(content)
+  // const [invalidFields, setInvalidFields] = useState(true)
   const [adding, setAdding] = useState(false)
   const [upddating, setUpddating] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const isNewCard = status === KanbanCardStatus.NEW
+
+  // useEffect(() => {
+  //   let valid = true
+  //   if (!editableTitle) {
+  //     valid = false
+  //   }
+  //   if (!editableContent) {
+  //     valid = false
+  //   }
+  //   setInvalidFields(valid)
+  // }, [editableTitle, editableContent])
+
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditableTitle(e.target.value)
   }
@@ -90,12 +103,19 @@ function Card({ card, onAdd, onDelete }: CardProps) {
       content: editableContent,
       status,
       title: editableTitle,
-    }).finally(() => {
-      setCurrentTitle(editableTitle)
-      setCurrentContent(editableContent)
-      setUpddating(false)
-      setEditMode(false)
     })
+      .then(() => {
+        setCurrentTitle(editableTitle)
+        setCurrentContent(editableContent)
+        setEditMode(false)
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(err.response.data.message)
+      })
+      .finally(() => {
+        setUpddating(false)
+      })
   }
   const deleteCard = () => {
     setUpddating(true)
@@ -114,15 +134,20 @@ function Card({ card, onAdd, onDelete }: CardProps) {
     setEditMode(false)
   }
 
-  const renderAddBtn = (
-    <button
-      onClick={() => addCard()}
-      disabled={adding}
-      className="bg-green-500 text-white py-2 px-4 rounded-full"
-    >
-      <PlusIcon className="h-5 w-5 text-white" />
-    </button>
-  )
+  const renderAddBtn = () => {
+    const isBtnDisabled = !editableTitle.trim() || !editableContent.trim()
+    return (
+      <button
+        onClick={() => addCard()}
+        disabled={adding || isBtnDisabled}
+        className={`bg-green-500 text-white py-2 px-4 rounded-full ${
+          isBtnDisabled ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
+      >
+        <PlusIcon className="h-5 w-5 text-white" />
+      </button>
+    )
+  }
   const editBtn = (
     <button
       onClick={() => setEditMode(!editMode)}
@@ -132,15 +157,22 @@ function Card({ card, onAdd, onDelete }: CardProps) {
       <PencilSquareIcon className="h-5 w-5 text-white" />
     </button>
   )
-  const saveBtn = (
-    <button
-      onClick={() => updateCard()}
-      disabled={upddating}
-      className="bg-green-600 text-white py-2 px-4 rounded-full"
-    >
-      <DocumentCheckIcon className="h-5 w-5 text-white" />
-    </button>
-  )
+  const saveBtn = () => {
+    const isSaveButtonDisabled =
+      !editableTitle.trim() || !editableContent.trim()
+
+    return (
+      <button
+        onClick={() => updateCard()}
+        disabled={upddating || isSaveButtonDisabled}
+        className={`bg-green-600 text-white py-2 px-4 rounded-full ${
+          isSaveButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
+      >
+        <DocumentCheckIcon className="h-5 w-5 text-white" />
+      </button>
+    )
+  }
   const deleteBtn = (
     <button
       onClick={() => deleteCard()}
@@ -166,10 +198,10 @@ function Card({ card, onAdd, onDelete }: CardProps) {
         {renderTitle()}
         {renderContent()}
         <div className="flex items-center justify-between mt-4">
-          {isNewCard && renderAddBtn}
+          {isNewCard && renderAddBtn()}
           {!isNewCard && !editMode && editBtn}
           {!isNewCard && !editMode && deleteBtn}
-          {editMode && saveBtn}
+          {editMode && saveBtn()}
           {editMode && discardBtn}
         </div>
       </div>
