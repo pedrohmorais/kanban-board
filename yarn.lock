@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@4tw/cypress-drag-drop@^2.2.5":
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/@4tw/cypress-drag-drop/-/cypress-drag-drop-2.2.5.tgz#a40f1431acac6d9ece7055c4779306f4eebad6bb"
-  integrity sha512-3ghTmzhOmUqeN6U3QmUnKRUxI7OMLbJA4hHUY/eS/FhWJgxbiGgcaELbolWnBAOpajPXcsNQGYEj9brd59WH6A==
-
 "@aashutoshrathi/word-wrap@^1.2.3":
   version "1.2.6"
   resolved "https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz"
@@ -1120,16 +1115,6 @@ csstype@^3.0.2:
   version "3.1.2"
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.2.tgz"
   integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
-
-cypress-drag-drop@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/cypress-drag-drop/-/cypress-drag-drop-1.1.1.tgz#33d68dc82b93fe6148423b99d34e1ce277e1392d"
-  integrity sha512-sp1dILmN8HXCUIeeztqlCslyghFT5w1gHM7RFA/AUSLKmDI/ovxNhZQI6U2/cbH2ehbCuvPppyh99uEt9dhF3w==
-
-cypress-real-events@^1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/cypress-real-events/-/cypress-real-events-1.11.0.tgz#292fe5281c5b6e955524e766ab7fec46930c7763"
-  integrity sha512-4LXVRsyq+xBh5TmlEyO1ojtBXtN7xw720Pwb9rEE9rkJuXmeH3VyoR1GGayMGr+Itqf11eEjfDewtDmcx6PWPQ==
 
 cypress@^13.4.0:
   version "13.4.0"
