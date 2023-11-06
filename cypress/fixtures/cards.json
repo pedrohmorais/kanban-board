@@ -1,0 +1,42 @@
+{
+  "GET": [
+    {
+      "id": 1,
+      "title": "teste-TODO",
+      "content": "test-content",
+      "status": "ToDo"
+    },
+    {
+      "id": 2,
+      "title": "test-DOING",
+      "content": "test-content",
+      "status": "Doing"
+    },
+    {
+      "id": 3,
+      "title": "test-DONE",
+      "content": "test-content",
+      "status": "Done"
+    }
+  ],
+  "PUT": {
+    "id": 1,
+    "title": "teste-TODO",
+    "content": "test-content",
+    "status": "Doing"
+  },
+  "DELETE": [
+    {
+      "id": 1,
+      "title": "teste-TODO",
+      "content": "test-content",
+      "status": "ToDo"
+    },
+    {
+      "id": 3,
+      "title": "test-DONE",
+      "content": "test-content",
+      "status": "Done"
+    }
+  ]
+}

@@ -113,7 +113,9 @@ function KanbanBoard({ username, password }) {
         <div
           ref={provided.innerRef}
           {...provided.droppableProps}
-          className="w-1/4 p-4 rounded bg-gray-100"
+          className="w-1/4 p-4 rounded bg-gray-100 kanban-column"
+          id={`kanban-column-${key}`}
+          data-status={key}
         >
           <h2 className="text-lg font-semibold">{title}</h2>
           {cards.map((card, index) => (
@@ -126,6 +128,7 @@ function KanbanBoard({ username, password }) {
             >
               {(provided) => (
                 <div
+                  className="kanban-card"
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
